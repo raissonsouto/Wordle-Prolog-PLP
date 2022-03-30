@@ -23,7 +23,8 @@ colorfulPrint(Tentativa, Metadado, Resultado):-
     atom_chars(Tentativa, TentativaList),
     atom_chars(Metadado, MetadadoList),
     textColorizer(TentativaList, MetadadoList, Resultado),
-    write(Resultado).
+    write(Resultado),
+    write("\n").
 
 /* EXEMPLO
 main:-

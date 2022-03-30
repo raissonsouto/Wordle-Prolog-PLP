@@ -1,47 +1,47 @@
-/*:- include('ColorfulPrint.pl').
-* :- include('GuessChecker.pl').
-* :- include('SeletorDePalavras.pl').
-*/
+:- include('ColorfulPrint.pl').
+:- include('GuessChecker.pl').
 
-jogo(6):- loseScreen.
-jogo(QtdLoops, ):-
+jogo(6, PalavraCerta):- loseScreen(PalavraCerta).
+jogo(QtdLoops, PalavraCerta):-
     recebeTentativa(Tentativa),
-    /*guessChecker(Tentativa, Metadado),*/
-    Tentativa =:= "teste" -> winScreen();
-    /*Recursao > 4,
-    loseScreen();*/
-    write("fon").
+    %guessChecker(Tentativa, PalavraCerta, Metadado),
+    colorfulPrint(Tentativa, Metadado, Resultado),
+    Metadado =:= "VVVVV" -> winScreen(PalavraCerta);
+    NewQtdLoops is QtdLoops + 1,
+    jogo(NewQtdLoops, PalavraCerta).
 
-recebeTentativa(Tentativa):-
+recebeTentativa(Entrada):-
     write("Qual a palavra secreta? "),
-    read(Entrada),
-    Tentativa is Entrada.
+    read(Entrada).
     /*validaEntrada(Entrada) -> Tentativa is Entrada;
-    recebeTentativa(Tentativa).*/
+    write("Palavra nao aceita. Tente novamente: ")
+    recebeTentativa(Tentativa).
 
 validaEntrada(Tentativa):-
-    Tentativa =:= "teste".
+    Tentativa =:= "teste".*/
 
-winScreen:-
-    write("######################################################################\n"                                                                    
-            ++"#                                                                    #\n"
-            ++"#        ██╗   ██╗ ██████╗ ██╗   ██╗     ██╗    ██╗██╗███╗   ██╗     #\n" 
-            ++"#        ╚██╗ ██╔╝██╔═══██╗██║   ██║     ██║    ██║██║████╗  ██║     #\n"
-            ++"#         ╚████╔╝ ██║   ██║██║   ██║     ██║ █╗ ██║██║██╔██╗ ██║     #\n"
-            ++"#          ╚██╔╝  ██║   ██║██║   ██║     ██║███╗██║██║██║╚██╗██║     #\n"
-            ++"#           ██║   ╚██████╔╝╚██████╔╝     ╚███╔███╔╝██║██║ ╚████║     #\n"    
-            ++"#           ╚═╝    ╚═════╝  ╚═════╝       ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     #\n"
-            ++"#                                                                    #\n"
-            ++"######################################################################\n").
+winScreen(PalavraCerta):-
+    write("PALAVRA CORRETA: "),
+    colorfulPrint(PalavraCerta, "VVVVV", Resultado),
+    write("\n"),
+    write("###############################################################################\n"),
+    write("#                                                                             #\n"),
+    write("                                   "),
+    colorfulPrint("YOU WIN","VVVVVVV", Saida),
+    write("#                                                                             #\n"),
+    write("###############################################################################\n").
 
-loseScreen:-
-    write("###############################################################################\n"
-            ++"#                                                                             #\n"
-            ++"#        ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗     #\n"
-            ++"#        ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝     #\n"
-            ++"#         ╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗█████╗       #\n"
-            ++"#          ╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝       #\n"
-            ++"#           ██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗     #\n"
-            ++"#           ╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝     #\n"
-            ++"#                                                                             #\n"
-            ++"###############################################################################\n").
+loseScreen(PalavraCerta):-
+    write("PALAVRA CORRETA: "),
+    colorfulPrint(PalavraCerta, "VVVVV", Resultado),
+    write("\n"),
+    write("###############################################################################\n"),
+    write("#                                                                             #\n"),
+    write("                                   "),
+    colorfulPrint("YOU LOSE","XXXXXXXX", Saida),          
+    write("#                                                                             #\n"),
+    write("###############################################################################\n").
+
+main:-
+    jogo(0, "teste"),
+    halt.
