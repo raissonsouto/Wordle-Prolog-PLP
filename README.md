@@ -1,6 +1,6 @@
 # Wordle em Prolog (PLP)
 
-Projeto realizado pelos alunos descritos abaixo na disciplina de PLP ministrada pelo professor Everton Leandro Galdino Alves no período 2021.1e.
+Projeto realizado pelos alunos descritos abaixo na disciplina de PLP ministrada pelo professor Everton Leandro Galdino Alves no período 2021.1.
 
 ## Alunos
 
@@ -16,18 +16,23 @@ Para rodar o jogo basta clonar o repositório com o comando:
 ```
 $ git clone https://github.com/raissonsouto/Wordle-Prolog-PLP.git
 ```
-Tendo o ??? instalado na sua máquina, instale as dependências ```???```:
+<!--
+Tendo o prolog instalado na sua máquina, instale as dependências ```???```:
 ```
 $ ???
 ```
-Depois acesse o diretório do projeto e utilize o comando: 
+-->
+Depois acesse o diretório do projeto e utilize o comando:
 ```
-$ runhaskell Main.hs
+$ cd Wordle-Prolog-PLP
+```
+```
+$ swipl -q -f Main.pl -t main
 ```
 
 ## Instruções para o jogo WORDLE :
 
-O JOGADOR irá receber uma palavra aleatória com 5 letras, e terá que tentar advinhar com 5 tentativas.
+O JOGADOR irá receber uma palavra aleatória com 5 letras, e terá que tentar advinhar com 6 tentativas.
 Após a primeira tentativa o JOGADOR terá um feedback via terminal, em cores, para cada letra da palavra, sendo assim:
 
 + VERDE : caso o JOGADOR receba uma letra em verde significa que a letra EXISTE e está na posição CORRETA;
@@ -37,4 +42,4 @@ Após a primeira tentativa o JOGADOR terá um feedback via terminal, em cores, p
 ### Win
 Caso o jogador consiga advinhar a palavra será exibida uma mensagem de vitória.
 ### Lose
-Após a quinta tentativa, caso o jogador não consiga descobrir a palavra o jogo será encerrado e exibirá a mensagem de derrota.
+Após a seis tentativa, caso o jogador não consiga descobrir a palavra o jogo será encerrado e exibirá a mensagem de derrota.

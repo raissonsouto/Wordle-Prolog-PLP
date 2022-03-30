@@ -1,0 +1,1 @@
+guessChecker(Tentativa, PalavraCerta, Metadado):- "VVOXV".
