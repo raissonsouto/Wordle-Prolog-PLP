@@ -1,13 +1,11 @@
 main :-
     read(A),
     read(B),
-    atom_chars(A, A1),
-    atom_chars(B, B1),
-    guessChecker(A1, B1, Saida),
+    guessChecker(A, B, Saida),
     writeln(Saida).
 
 comparator(A, A, 'V') :- !.
-comparator(A, B, A).
+comparator(A, _, A).
 
 correctPositions([], [], '', '') :- !.
 correctPositions([A|B], [C|D], Ten, Res) :-
@@ -19,7 +17,7 @@ correctPositions([A|B], [C|D], Ten, Res) :-
     Res = Res2,
     Ten = Ten2.
 
-correctLetter(X, [], '') :- !.
+correctLetter(_, [], '') :- !.
 correctLetter(X, [X|Y], Res) :-
     atom_string(Y, Y1),
     atom_concat('E', Y1, Juncao),
@@ -52,12 +50,14 @@ wrongLetter(['E'|Y], Res) :-
     atom_concat('E', Res1, Res2),
     Res = Res2,
     !.
-wrongLetter([X|Y], Res) :-
+wrongLetter([_|Y], Res) :-
     wrongLetter(Y, Res1),
     atom_concat('X', Res1, Res2),
     Res = Res2.
 
-guessChecker(Guess, Answer, Output) :-
+guessChecker(G, A, Output) :-
+    atom_chars(G, Guess),
+    atom_chars(A, Answer),
     correctPositions(Guess, Answer, Tentativa, Resposta),
     atom_chars(Tentativa, Tentativa1),
     atom_chars(Resposta, Resposta1),
