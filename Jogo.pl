@@ -1,18 +1,22 @@
 :- include('ColorfulPrint.pl').
 :- include('GuessChecker.pl').
 
-jogo(6, PalavraCerta):- loseScreen(PalavraCerta).
-jogo(QtdLoops, PalavraCerta):-
+jogo(6, PalavraCerta, Print):- loseScreen(PalavraCerta).
+jogo(QtdLoops, PalavraCerta, Print):-
     recebeTentativa(Tentativa),
+    write(Print),
     %guessChecker(Tentativa, PalavraCerta, Metadado),
-    colorfulPrint(Tentativa, Metadado, Resultado),
-    Metadado =:= "VVVVV" -> winScreen(PalavraCerta);
+    colorfulPrintLn(Tentativa, "VVVVO", Resultado),
+    write("\n"),
+    string_concat(Print, Resultado, NewPrint),
+    ("VVVVO" = "VVVVV" -> winScreen(PalavraCerta);
     NewQtdLoops is QtdLoops + 1,
-    jogo(NewQtdLoops, PalavraCerta).
+    jogo(NewQtdLoops, PalavraCerta, NewPrint)).
 
 recebeTentativa(Entrada):-
     write("Qual a palavra secreta? "),
-    read(Entrada).
+    read(Entrada),
+    write("\n").
     /*validaEntrada(Entrada) -> Tentativa is Entrada;
     write("Palavra nao aceita. Tente novamente: ")
     recebeTentativa(Tentativa).
@@ -21,7 +25,7 @@ validaEntrada(Tentativa):-
     Tentativa =:= "teste".*/
 
 winScreen(PalavraCerta):-
-    write("PALAVRA CORRETA: "),
+    write("\nPALAVRA CORRETA: "),
     colorfulPrint(PalavraCerta, "VVVVV", Resultado),
     write("\n"),
     write("###############################################################################\n"),
@@ -32,7 +36,7 @@ winScreen(PalavraCerta):-
     write("###############################################################################\n").
 
 loseScreen(PalavraCerta):-
-    write("PALAVRA CORRETA: "),
+    write("\nPALAVRA CORRETA: "),
     colorfulPrint(PalavraCerta, "VVVVV", Resultado),
     write("\n"),
     write("###############################################################################\n"),
@@ -43,5 +47,5 @@ loseScreen(PalavraCerta):-
     write("###############################################################################\n").
 
 main:-
-    jogo(0, "teste"),
+    jogo(0, "teste", ""),
     halt.
