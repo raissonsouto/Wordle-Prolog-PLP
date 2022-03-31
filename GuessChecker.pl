@@ -1,47 +1,66 @@
 main :-
     read(A),
-    atom_codes(A, B),
-    atom_chars(A, C),
-    correctLetter('o', C, Alo),
-    write(Alo).
+    read(B),
+    atom_chars(A, A1),
+    atom_chars(B, B1),
+    guessChecker(A1, B1, Saida),
+    writeln(Saida).
 
-comparator(A, A, ['V']) :- !.
-comparator(A, B, [A]).
+comparator(A, A, 'V') :- !.
+comparator(A, B, A).
 
+correctPositions([], [], '', '') :- !.
+correctPositions([A|B], [C|D], Ten, Res) :-
+    comparator(A, C, R1),
+    comparator(C, A, R2),
+    correctPositions(B, D, Ten1, Res1),
+    atom_concat(R1, Ten1, Ten2),
+    atom_concat(R2, Res1, Res2),
+    Res = Res2,
+    Ten = Ten2.
 
-correctLetter(X, [], []) :- !.
-
+correctLetter(X, [], '') :- !.
 correctLetter(X, [X|Y], Res) :-
-    correctLetter(X, Y, Res1),
-    append(['E'], Res1, Juncao),
-    writeln(Juncao),
-    Res is Juncao,
+    atom_string(Y, Y1),
+    atom_concat('E', Y1, Juncao),
+    Res = Juncao,
     !.
-
 correctLetter(X, [Y|Z], Res) :-
     correctLetter(X, Z, Res1),
-    append(['X'], Res1, Juncao),
-    writeln(Juncao),
-    Res is Juncao.
+    atom_concat(Y, Res1, Juncao),
+    Res = Juncao.
 
-correctPositions([], [], []) :- !.
-correctPositions([A|B], [C|D], Res) :-
-    correctPositions(B, D, Res2),
-    comparator(A, C, Res1),
-    write("A:"),
-    writeln(A),
-    write("C:"),
-    writeln(C),
-    write("Res1:"),
-    writeln(Res1),
-    write("Res2:"),
-    writeln(Res2),
-    append(Res1, Res2, Juncao),
-    write("Juncao:"),
-    writeln(Juncao),
-    Res is Juncao,
-    writeln(".").
+repeat([], Tentativa, Tentativa) :- !.
+repeat(['V'|B], Tentativa, Metadado) :-
+    repeat(B, Tentativa, Saida),
+    Metadado = Saida,
+    !.
+repeat([A|B], Tentativa, Metadado) :-
+    correctLetter(A, Tentativa, M),
+    atom_chars(M, M1),
+    repeat(B, M1, Metadado1),
+    Metadado = Metadado1.
 
-guessChecker(Tentativa, Correto, Res) :-
-    correctPositions(Tentativa, Correto, Res_C),
-    
+wrongLetter([], '') :- !.
+wrongLetter(['V'|Y], Res) :- 
+    wrongLetter(Y, Res1),
+    atom_concat('V', Res1, Res2),
+    Res = Res2,
+    !.
+wrongLetter(['E'|Y], Res) :-
+    wrongLetter(Y, Res1),
+    atom_concat('E', Res1, Res2),
+    Res = Res2,
+    !.
+wrongLetter([X|Y], Res) :-
+    wrongLetter(Y, Res1),
+    atom_concat('X', Res1, Res2),
+    Res = Res2.
+
+guessChecker(Guess, Answer, Output) :-
+    correctPositions(Guess, Answer, Tentativa, Resposta),
+    atom_chars(Tentativa, Tentativa1),
+    atom_chars(Resposta, Resposta1),
+    repeat(Resposta1, Tentativa1, Metadado),
+    wrongLetter(Metadado, Res),
+    Output = Res.
