@@ -26,6 +26,13 @@ colorfulPrint(Tentativa, Metadado, Resultado):-
     write(Resultado),
     write("\n").
 
+colorfulPrintLn(Tentativa, Metadado, Resultado):-
+    atom_chars(Tentativa, TentativaList),
+    atom_chars(Metadado, MetadadoList),
+    textColorizer(TentativaList, MetadadoList, ResultadoSemLn),
+    string_concat(ResultadoSemLn, "\n", Resultado),
+    write(Resultado).
+
 /* EXEMPLO
 main:-
     colorfulPrint("teste", "VVOXX", Resultado),
