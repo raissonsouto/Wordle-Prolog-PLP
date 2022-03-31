@@ -1,9 +1,7 @@
 main :-
     read(A),
     read(B),
-    atom_chars(A, A1),
-    atom_chars(B, B1),
-    guessChecker(A1, B1, Saida),
+    guessChecker(A, B, Saida),
     writeln(Saida).
 
 comparator(A, A, 'V') :- !.
@@ -57,7 +55,9 @@ wrongLetter([_|Y], Res) :-
     atom_concat('X', Res1, Res2),
     Res = Res2.
 
-guessChecker(Guess, Answer, Output) :-
+guessChecker(G, A, Output) :-
+    atom_chars(G, Guess),
+    atom_chars(A, Answer),
     correctPositions(Guess, Answer, Tentativa, Resposta),
     atom_chars(Tentativa, Tentativa1),
     atom_chars(Resposta, Resposta1),
