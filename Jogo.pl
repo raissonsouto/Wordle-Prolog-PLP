@@ -12,7 +12,8 @@ jogo(QtdLoops, PalavraCerta, Print):-
     colorfulPrintLn(Tentativa, Metadado, Resultado),
     write("\n"),
     string_concat(Print, Resultado, NewPrint),
-    (Metadado = "VVVVV" -> winScreen(PalavraCerta);
+    atom_string(Metadado, StrMetadado),
+    (StrMetadado = "VVVVV" -> winScreen(PalavraCerta);
     NewQtdLoops is QtdLoops + 1,
     jogo(NewQtdLoops, PalavraCerta, NewPrint)).
 
