@@ -8,7 +8,7 @@ concatenate(StringList, StringResult) :-
 
 colorString(X, 'X', Saida) :- concatenate(["\u001b[31m", X, "\u001b[0m"], Saida).
 colorString(X, 'V', Saida) :- concatenate(["\u001b[32m", X, "\u001b[0m"], Saida).
-colorString(X, 'O', Saida) :- concatenate(["\u001b[33m", X, "\u001b[0m"], Saida).
+colorString(X, 'E', Saida) :- concatenate(["\u001b[33m", X, "\u001b[0m"], Saida).
 
 
 textColorizer([TentativaHead|[]], [MetadadoHead|[]], Resultado):-

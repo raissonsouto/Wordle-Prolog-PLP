@@ -14,8 +14,6 @@ mainMenu:-
   menu(Entrada),
   mainMenu.
 
-
-
 %guia menu
 printMenu:-
   write("  [J]ogar \n"),
@@ -24,21 +22,17 @@ printMenu:-
   write("  [S]air\n"),
   write("  Digite uma letra >>> ").
   
-
 %comandos menu.
-menu("D"):- creditos.  
-menu("d"):- creditos.
-menu("J"):- write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "").
-menu("j"):- write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "").
-menu("M"):- manual.
-menu("m"):- manual.
-menu("S"):- sair.
-menu("s"):- sair.
-
-menu(Entrada):- 
-  write(" Letra "), write(Entrada), write(" Inexistente.\n").
-
-
+menu(Entrada):-
+  Entrada = "D" -> creditos;
+  Entrada = "d" -> creditos;
+  Entrada = "S" -> creditos;
+  Entrada = "s" -> creditos;
+  Entrada = "M" -> creditos;
+  Entrada = "m" -> creditos;
+  Entrada = "J" -> write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "");
+  Entrada = "j" -> write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "");
+  true -> write(" Letra "), write(Entrada), write(" Inexistente.\n").
 
 wordleLogo:- 
   write("\n"),

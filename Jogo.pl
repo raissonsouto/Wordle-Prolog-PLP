@@ -3,7 +3,7 @@
 
 lerString(X):- read_line_to_codes(user_input, E), atom_string(E,X).
 
-jogo(6, PalavraCerta, Print):- loseScreen(PalavraCerta).
+jogo(6, PalavraCerta, _):- loseScreen(PalavraCerta).
 
 jogo(QtdLoops, PalavraCerta, Print):-
     recebeTentativa(Tentativa),
@@ -18,28 +18,27 @@ jogo(QtdLoops, PalavraCerta, Print):-
 
 recebeTentativa(Entrada):-
     write("Qual a palavra secreta? "),
-    lerString(Entrada),
-    write("\n"),
-    (verificaPalavra(Entrada)->write("\n");
-    write("Palavra nao existe.\n"), recebeTentativa(Entrada)).
+    lerString(Entrada1),
+    (verificaPalavra(Entrada1) -> write("\n"), Entrada = Entrada1;
+    write("\nPalavra nao existe.\n"), recebeTentativa(Entrada2), Entrada = Entrada2).
 
 winScreen(PalavraCerta):-
     write("\nPALAVRA CORRETA: "),
-    colorfulPrint(PalavraCerta, "VVVVV", Resultado),
+    colorfulPrint(PalavraCerta, "VVVVV", _),
     write("###############################################################################\n"),
     write("#                                                                             #\n"),
     write("                                   "),
-    colorfulPrint("YOU WIN","VVVVVVV", Saida),
+    colorfulPrint("YOU WIN","VVVVVVV", _),
     write("#                                                                             #\n"),
     write("###############################################################################\n").
 
 loseScreen(PalavraCerta):-
     write("\nPALAVRA CORRETA: "),
-    colorfulPrint(PalavraCerta, "VVVVV", Resultado),
+    colorfulPrint(PalavraCerta, "VVVVV", _),
     write("###############################################################################\n"),
     write("#                                                                             #\n"),
     write("                                   "),
-    colorfulPrint("YOU LOSE","XXXXXXXX", Saida),          
+    colorfulPrint("YOU LOSE","XXXXXXXX", _),          
     write("#                                                                             #\n"),
     write("###############################################################################\n").
 
