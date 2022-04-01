@@ -26,13 +26,13 @@ printMenu:-
 menu(Entrada):-
   Entrada = "D" -> creditos;
   Entrada = "d" -> creditos;
-  Entrada = "S" -> creditos;
-  Entrada = "s" -> creditos;
-  Entrada = "M" -> creditos;
-  Entrada = "m" -> creditos;
+  Entrada = "S" -> sair;
+  Entrada = "s" -> sair;
+  Entrada = "M" -> manual;
+  Entrada = "m" -> manual;
   Entrada = "J" -> write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "");
   Entrada = "j" -> write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "");
-  true -> write(" Letra "), write(Entrada), write(" Inexistente.\n").
+  true -> write("   Letra "), write(Entrada), write(" Inexistente.\n\n").
 
 wordleLogo:- 
   write("\n"),
