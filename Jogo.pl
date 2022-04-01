@@ -4,6 +4,7 @@
 lerString(X):- read_line_to_codes(user_input, E), atom_string(E,X).
 
 jogo(6, PalavraCerta, Print):- loseScreen(PalavraCerta).
+
 jogo(QtdLoops, PalavraCerta, Print):-
     recebeTentativa(Tentativa),
     write(Print),
@@ -18,7 +19,9 @@ jogo(QtdLoops, PalavraCerta, Print):-
 recebeTentativa(Entrada):-
     write("Qual a palavra secreta? "),
     lerString(Entrada),
-    write("\n").
+    write("\n"),
+    (verificaPalavra(Entrada)->write("\n");
+    write("Palavra nao existe.\n"), recebeTentativa(Entrada)).
 
 winScreen(PalavraCerta):-
     write("\nPALAVRA CORRETA: "),

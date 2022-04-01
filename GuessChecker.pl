@@ -1,3 +1,4 @@
+:- use_module(library(lists)).
 comparator(A, A, 'V') :- !.
 comparator(A, _, A).
 
