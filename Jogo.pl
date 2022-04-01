@@ -1,33 +1,28 @@
 :- include('ColorfulPrint.pl').
 :- include('GuessChecker.pl').
 
+lerString(X):- read_line_to_codes(user_input, E), atom_string(E,X).
+
 jogo(6, PalavraCerta, Print):- loseScreen(PalavraCerta).
 jogo(QtdLoops, PalavraCerta, Print):-
     recebeTentativa(Tentativa),
     write(Print),
-    %guessChecker(Tentativa, PalavraCerta, Metadado),
-    colorfulPrintLn(Tentativa, "VVVVO", Resultado),
+    guessChecker(Tentativa, PalavraCerta, Metadado),
+    colorfulPrintLn(Tentativa, Metadado, Resultado),
     write("\n"),
     string_concat(Print, Resultado, NewPrint),
-    ("VVVVO" = "VVVVV" -> winScreen(PalavraCerta);
+    (Metadado = "VVVVV" -> winScreen(PalavraCerta);
     NewQtdLoops is QtdLoops + 1,
     jogo(NewQtdLoops, PalavraCerta, NewPrint)).
 
 recebeTentativa(Entrada):-
     write("Qual a palavra secreta? "),
-    read(Entrada),
+    lerString(Entrada),
     write("\n").
-    /*validaEntrada(Entrada) -> Tentativa is Entrada;
-    write("Palavra nao aceita. Tente novamente: ")
-    recebeTentativa(Tentativa).
-
-validaEntrada(Tentativa):-
-    Tentativa =:= "teste".*/
 
 winScreen(PalavraCerta):-
     write("\nPALAVRA CORRETA: "),
     colorfulPrint(PalavraCerta, "VVVVV", Resultado),
-    write("\n"),
     write("###############################################################################\n"),
     write("#                                                                             #\n"),
     write("                                   "),
@@ -38,7 +33,6 @@ winScreen(PalavraCerta):-
 loseScreen(PalavraCerta):-
     write("\nPALAVRA CORRETA: "),
     colorfulPrint(PalavraCerta, "VVVVV", Resultado),
-    write("\n"),
     write("###############################################################################\n"),
     write("#                                                                             #\n"),
     write("                                   "),
@@ -46,6 +40,6 @@ loseScreen(PalavraCerta):-
     write("#                                                                             #\n"),
     write("###############################################################################\n").
 
-main:-
+/*main:-
     jogo(0, "teste", ""),
-    halt.
+    halt.*/

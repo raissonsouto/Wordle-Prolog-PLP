@@ -1,9 +1,3 @@
-main :-
-    read(A),
-    read(B),
-    guessChecker(A, B, Saida),
-    writeln(Saida).
-
 comparator(A, A, 'V') :- !.
 comparator(A, _, A).
 
@@ -64,3 +58,9 @@ guessChecker(G, A, Output) :-
     repeat(Resposta1, Tentativa1, Metadado),
     wrongLetter(Metadado, Res),
     Output = Res.
+
+verificaPalavra(Palavra) :-
+	open('palavras.json', read, Stream),
+	read(Stream, A),
+	close(Stream),
+	member(Palavra, A).

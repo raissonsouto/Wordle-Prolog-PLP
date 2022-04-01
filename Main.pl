@@ -1,42 +1,42 @@
-:-use_module(library(csv)).
 :- include('Jogo.pl').
+:- include('SeletorDePalavras.pl').
 
 main :-
   wordleLogo,
+  write("\n"),
   mainMenu,
   halt.
 
 mainMenu:-
   printMenu,
   lerString(Entrada),
+  write("\n"), 
   menu(Entrada),
   mainMenu.
 
-lerString(X):- read_line_to_codes(user_input, E), atom_string(E,X).
+
 
 %guia menu
 printMenu:-
   write("  [J]ogar \n"),
   write("  [M]anual \n"),
-  write('  [H]istorico\n'),
   write("  [D]esenvolvedores \n"),
   write("  [S]air\n"),
   write("  Digite uma letra >>> ").
+  
 
 %comandos menu.
 menu("D"):- creditos.  
 menu("d"):- creditos.
-menu("J"):- write("jogar").
-menu("j"):- write("jogar").
+menu("J"):- write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "").
+menu("j"):- write("  JOGO INICIADO! \n"), seleciona(Palavra), jogo(0, Palavra, "").
 menu("M"):- manual.
 menu("m"):- manual.
-menu("H"):- write("historico").
-menu("h"):- write("historico").
 menu("S"):- sair.
 menu("s"):- sair.
 
 menu(Entrada):- 
-  write(" Letra "), write(Entrada), write(" Inexistente.").
+  write(" Letra "), write(Entrada), write(" Inexistente.\n").
 
 
 
