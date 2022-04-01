@@ -61,7 +61,7 @@ guessChecker(G, A, Output) :-
     Output = Res.
 
 verificaPalavra(Palavra) :-
-	open('palavras.json', read, Stream),
+	open('tentativas.json', read, Stream),
 	read(Stream, A),
 	close(Stream),
 	member(Palavra, A).
