@@ -2,6 +2,7 @@
 :- include('SeletorDePalavras.pl').
 
 main :-
+  restart,
   wordleLogo,
   write("\n"),
   mainMenu,
