@@ -12,6 +12,18 @@ update(Palavra, Array):-
 	write(Out, Res1),
 	close(Out).
 
+restart:-
+	open('tentativas.json', read, Stream),
+	read(Stream, A),
+	close(Stream),
+	open('palavras.json', write, Out),
+	atomic_list_concat(A, ',', Atom),
+	atom_string(Atom, NA),
+	atom_concat('[', NA, Res),
+	atom_concat(Res, '].', Res1),
+	write(Out, Res1),
+	close(Out).
+
 seleciona(Palavra) :-
 	open('palavras.json', read, Stream),
 	read(Stream, A),
